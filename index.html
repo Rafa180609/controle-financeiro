@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Controle Financeiro - Gerencie seu patrimônio com facilidade. Acompanhe receitas, despesas, distribuição de investimentos e metas financeiras.">
+  <meta name="theme-color" content="#059669">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Controle Financeiro">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="og:title" content="Controle Financeiro">
+  <meta name="og:description" content="Gerencie seu patrimônio com facilidade">
+  <meta name="og:type" content="website">
+  <title>Controle Financeiro - Gerencie seu Patrimônio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>₿</text></svg>">
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">₿</div>
+        <div>
+          <p class="hello">Olá 👋</p>
+          <h1>Rafael</h1>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" title="Alternar tema (claro/escuro)">🌙</button>
+        <button class="icon-btn danger" id="resetBtn" title="Limpar todos os dados">↺</button>
+      </div>
+    </header>
+
+    <section class="hero card">
+      <p class="hero-label">Patrimônio Total</p>
+      <h2 class="hero-balance" id="totalBalance">R$ 0,00</h2>
+      <div class="hero-row">
+        <div class="pill up">↑ <span id="totalIncome">R$ 0,00</span></div>
+        <div class="pill down">↓ <span id="totalExpense">R$ 0,00</span></div>
+      </div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="movimentacoes" title="Alt+1">Movimentações</button>
+      <button class="tab" data-tab="distribuicao" title="Alt+2">Distribuição</button>
+      <button class="tab" data-tab="metas" title="Alt+3">Metas</button>
+    </nav>
+
+    <!-- MOVIMENTAÇÕES -->
+    <section class="panel active" id="tab-movimentacoes">
+      <div class="card">
+        <h3>Nova movimentação</h3>
+        <div class="type-toggle">
+          <button class="t-opt active" data-type="income">Receita</button>
+          <button class="t-opt" data-type="expense">Despesa</button>
+        </div>
+        <input type="text" id="txDesc" placeholder="Descrição (ex: Salário)" aria-label="Descrição da transação" />
+        <input type="number" id="txAmount" placeholder="0,00" step="0.01" min="0" inputmode="decimal" aria-label="Valor da transação" />
+        <button class="primary-btn" id="addTx">Adicionar saldo</button>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Histórico</h3>
+          <span class="muted" id="txCount">0 itens</span>
+        </div>
+        <ul class="tx-list" id="txList"></ul>
+      </div>
+    </section>
+
+    <!-- DISTRIBUIÇÃO -->
+    <section class="panel" id="tab-distribuicao">
+      <div class="card chart-card">
+        <h3>Distribuição do patrimônio</h3>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 200 200" id="donut" class="donut" aria-label="Gráfico de distribuição do patrimônio"></svg>
+          <div class="chart-center">
+            <p class="muted">Total</p>
+            <strong id="donutTotal">R$ 0,00</strong>
+          </div>
+        </div>
+        <ul class="legend" id="legend" role="region" aria-label="Legenda do gráfico"></ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Porcentagens (%)</h3>
+          <span class="muted" id="pctSum">100%</span>
+        </div>
+        <ul class="alloc-list" id="allocList"></ul>
+        <button class="primary-btn" id="saveAllocs">Salvar porcentagens</button>
+      </div>
+    </section>
+
+    <!-- METAS -->
+    <section class="panel" id="tab-metas">
+      <div class="card">
+        <h3>Nova meta</h3>
+        <input type="text" id="goalName" placeholder="Nome (ex: Viagem)" aria-label="Nome da meta" />
+        <input type="number" id="goalTarget" placeholder="Valor alvo (R$)" step="0.01" min="0" inputmode="decimal" aria-label="Valor alvo da meta" />
+        <input type="number" id="goalCurrent" placeholder="Acumulado (R$)" step="0.01" min="0" inputmode="decimal" aria-label="Valor acumulado da meta" />
+        <button class="primary-btn" id="addGoal">Criar meta</button>
+      </div>
+
+      <div class="card">
+        <h3>Suas metas</h3>
+        <ul class="goal-list" id="goalList"></ul>
+      </div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
